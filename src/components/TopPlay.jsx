@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"; 
 import{Swiper,SwiperSlide} from "swiper/react";
 import { FreeMode } from "swiper";
-//import {PlayPause} from "./PlayPause";
+import PlayPause from "./PlayPause";
 import {playPause, setActiveSong} from "../redux/features/playerSlice";
 import {useGetTopChartsQuery} from "../redux/services/shazamCore";
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
  
-const TopChartCard =({song, i})=>(
+const TopChartCard =({song, i,isPlaying, activeSong,handlePauseClick,handlePlayClick})=>(
   <div className="w-full flex flex-row items-center
    hover:bg-[#4c426e] py-2 p-4 cursor-pointer mb-2">
     <h3 className="font-bold text-base text-white mr-3"> {i+1}.
@@ -27,6 +27,13 @@ const TopChartCard =({song, i})=>(
 
         </div>
     </div>
+    <PlayPause
+    isPlaying={isPlaying}
+    activeSong={activeSong}
+    song={song}
+    handlePauseClick={handlePauseClick}
+    handlePlayClick={handlePlayClick}
+    />
 
 
   </div>
@@ -51,7 +58,7 @@ const handlePauseClick = () => {
   dispatch(playPause(false));
 
 };
-const handlePlayClick = ()=> {
+const handlePlayClick = (song,i)=> {
   dispatch(setActiveSong({song,data,i}));
   dispatch(playPause(true));
 
@@ -73,6 +80,10 @@ return(
           key={song.key}
           song={song}
           i={i}
+          isPlaying={isPlaying}
+          activeSong={activeSong}
+          handlePlayClick={()=>handlePlayClick(song,i)}
+          handlePauseClick={handlePauseClick}
           />
         ))}
 
