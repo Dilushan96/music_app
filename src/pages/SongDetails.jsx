@@ -19,8 +19,8 @@ const SongDetails = () => {
                 </h2>
                 <div className="mt-5">
                     {songData?.section[1].type === 'Lyrics' ?
-                    songData.section[1].text.map((Line,i)=>(
-                        <p>{Line}</p>
+                    songData.section[1].text.map((line,i)=>(
+                        <p>{line}</p>
                     )):<p> Sorry, No Lyrics found</p>}
 
                 </div>
